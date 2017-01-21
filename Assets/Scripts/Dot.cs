@@ -3,8 +3,11 @@ using DG.Tweening;
 
 public class Dot : MonoBehaviour {
 
-	void Start () {
-		
+    GameObject checkPoint;
+
+    void Awake () {
+        checkPoint = new GameObject();
+        checkPoint.transform.position = transform.position;
 	}
 	
 	void Update () {
@@ -20,16 +23,15 @@ public class Dot : MonoBehaviour {
     {
         if(other.tag == "bad-dot-wave")
         {
-            //gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(255, 255, 255, 0), .05f).SetLoops(6, LoopType.Yoyo);
-            //CameraShake.shakeDuration = 0.05f; //die basically
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "bad-dot-wave")
-        {
-            
+            GetComponent<CircleCollider2D>().enabled = false;
+            CameraShake.shakeDuration = 0.1f;
+            gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(255, 255, 255, 0), 1f).OnComplete(() =>
+            {
+                transform.position = checkPoint.transform.position;
+                GetComponent<CircleCollider2D>().enabled = true;
+                gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(255, 255, 255, 1), .1f);
+            });
+           
         }
     }
 }

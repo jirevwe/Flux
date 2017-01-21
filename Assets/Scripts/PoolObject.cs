@@ -14,7 +14,7 @@ public class PoolObject : MonoBehaviour {
         Invoke("Destroy", time);
     }
 
-	public virtual void OnObjectReuse() {
+	public virtual void OnObjectReuse(object args) {
         DieOH();
     }
 

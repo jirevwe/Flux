@@ -6,6 +6,7 @@ TagManager:
   tags:
   - bad-dot
   - bad-dot-wave
+  - dot
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: line
+    uniqueID: 2987901353
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

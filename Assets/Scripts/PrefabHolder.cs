@@ -7,18 +7,25 @@ public class PrefabHolder : MonoBehaviour {
     [HideInInspector]
     public PoolManager pool;
 
-    public GameObject wave;
+    public GameObject waveRect;
+    public GameObject waveCircle;
+    public GameObject waveTri;
+    public GameObject waveRectCut;
+
     public int amount;
 
     void Awake () {
         pool = PoolManager.instance;
         instance = this;
 
-        pool.CreatePool(wave, amount);
+        pool.CreatePool(waveRectCut, amount);
+        pool.CreatePool(waveCircle, amount);
+        pool.CreatePool(waveRect, amount);
+        pool.CreatePool(waveTri, amount);
     }
 	
-	public void ReuseObject(GameObject prefab, Vector3 position)
+	public void ReuseObject(GameObject prefab, Vector3 position, object args = null)
     {
-        pool.ReuseObject(prefab, position, Quaternion.identity);
+        pool.ReuseObject(prefab, position, Quaternion.identity, args);
     }
 }

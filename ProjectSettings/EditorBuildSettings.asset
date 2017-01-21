@@ -6,4 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StagingArea.unity
+    path: Assets/Scenes/0.unity
+  - enabled: 1
+    path: Assets/Scenes/1.unity
+  - enabled: 1
+    path: Assets/Scenes/2.unity
+  - enabled: 1
+    path: Assets/Scenes/3.unity
+  - enabled: 1
+    path: Assets/Scenes/5.unity
+  - enabled: 1
+    path: Assets/Scenes/4.unity
+  - enabled: 1
+    path: Assets/Scenes/6.unity

@@ -20,11 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4843991813771772}
   - component: {fileID: 212108452114923806}
-  - component: {fileID: 60773860151512572}
   - component: {fileID: 50256078875942766}
+  - component: {fileID: 60773860151512572}
   - component: {fileID: 114460057065626576}
   m_Layer: 0
-  m_Name: wave
+  m_Name: wave-circle
   m_TagString: bad-dot-wave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21532c76fc6fe0a48824745199077c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDie: 1
+  timeToDie: 3
 --- !u!212 &212108452114923806
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -195,7 +195,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4f2d210525ef01241bac3b645e96804d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e16b45ff4ab2a8d4ab1f0cb570d35325, type: 3}
+  m_Color: {r: 0.24313726, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

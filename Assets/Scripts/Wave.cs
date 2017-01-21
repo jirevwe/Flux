@@ -4,25 +4,35 @@ using System.Collections;
 
 public class Wave : PoolObject {
 
-    public override void OnObjectReuse()
+    public bool doRotate, isFlipped;
+
+    public override void OnObjectReuse(object args)
     {
-        timeToDie = 3f;
+        var _args = (WaveData)args;
+        timeToDie = _args.timeToFade;
+        doRotate = _args.shouldRotate;
+        isFlipped = _args.isFlipped;
 
         GetComponent<PolygonCollider2D>().enabled = true;
-        StartCoroutine(Disable());
-
+        StartCoroutine(Disable(3 * _args.timeToFade / 4));
+        
         transform.localScale = Vector3.zero;
-        gameObject.GetComponent<SpriteRenderer>().color = Color.black;
+        gameObject.GetComponent<SpriteRenderer>().color = _args.colorOfWave;
+        
+        transform.DOScale(_args.maxExpandSize, _args.timeToFade);
+        if (doRotate && !isFlipped)
+            transform.DORotate(new Vector3(0, 0, 60f), _args.timeToFade);
+        else if (!doRotate && isFlipped)
+            transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 180));
 
-        transform.DOScale(2, timeToDie);
-        gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(255,255,255,0), timeToDie);
-
-        base.OnObjectReuse();
+        gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(255,255,255,0), _args.timeToFade);
+        
+        base.OnObjectReuse(args);
     }
 
-    IEnumerator Disable()
+    IEnumerator Disable(float fadeTime)
     {
-        yield return new WaitForSeconds(3 * timeToDie / 4);
+        yield return new WaitForSeconds(fadeTime);
         GetComponent<PolygonCollider2D>().enabled = false;
     }
 }
