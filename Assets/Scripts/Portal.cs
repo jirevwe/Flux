@@ -17,7 +17,12 @@ public class Portal : MonoBehaviour {
     {
         transform.DOScale(.1f, 2f).OnComplete(() => 
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if (SceneManager.GetActiveScene().buildIndex == 8)
+            {
+                SceneManager.LoadScene("Credits");
+            }
+            else
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         });
     }
 }

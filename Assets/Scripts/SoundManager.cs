@@ -22,7 +22,7 @@ public class SoundManager : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex == 0)
+        if (Input.GetKeyUp(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex == 1)
         {
             Application.Quit();
         }

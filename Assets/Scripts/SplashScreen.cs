@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class SplashScreen : MonoBehaviour {
 
-	// Use this for initialization
+    CanvasGroup panel;
+
 	void Start () {
-        transform.DOScale(.7f, 1).SetLoops(-1, LoopType.Yoyo);
+        panel = GetComponent<CanvasGroup>();
+
+        DOTween.To(() => panel.alpha, a => panel.alpha = a, 1.0f, 2f).OnComplete(() => 
+        {
+            DOTween.To(() => panel.alpha, a => panel.alpha = a, 0.0f, 2f).OnComplete(StartGame);
+        });
     }
 	
 	public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

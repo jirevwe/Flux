@@ -4,8 +4,8 @@ using DG.Tweening;
 public class Line : MonoBehaviour {
 
 	void Start () {
-		
-	}
+        
+    }
 	
 	void Update () {
 		
