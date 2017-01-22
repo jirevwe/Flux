@@ -91,6 +91,30 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &38595284 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1592868110418522, guid: 77f0accfeb58ce24899bf3ac1e767629,
+    type: 2}
+  m_PrefabInternal: {fileID: 1243036512}
+--- !u!114 &38595285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 38595284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377821f929a18a04f86229ea3304d1ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wave: {fileID: 1740028228139894, guid: 0f3d220d77d2f7b4d88a70f54af2a789, type: 2}
+  args:
+    timeToFade: 3
+    maxExpandSize: 2.1
+    colorOfWave: {r: 0.53333336, g: 0.015686275, b: 0.8392157, a: 1}
+    shouldRotate: 0
+    isFlipped: 1
+  sqawnInterval: 0.55
 --- !u!1 &222227617
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +171,7 @@ MonoBehaviour:
   waveRect: {fileID: 1740028228139894, guid: a1ccb307d2cb26d45965dc2089cd4e90, type: 2}
   waveCircle: {fileID: 1864485531897518, guid: c9c2380e2ece1234c91cd83d211d0238, type: 2}
   waveTri: {fileID: 1740028228139894, guid: 0f3d220d77d2f7b4d88a70f54af2a789, type: 2}
-  waveRectCut: {fileID: 1740028228139894, guid: 2175f830558df5c49bc4ee6a4dbcc7bb,
+  waveRectCut: {fileID: 1740028228139894, guid: a1ccb307d2cb26d45965dc2089cd4e90,
     type: 2}
   amount: 100
 --- !u!1 &805386103
@@ -266,46 +290,22 @@ Prefab:
     - target: {fileID: 114569609843240596, guid: 77f0accfeb58ce24899bf3ac1e767629,
         type: 2}
       propertyPath: args.maxExpandSize
-      value: 2.1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 114569609843240596, guid: 77f0accfeb58ce24899bf3ac1e767629,
         type: 2}
       propertyPath: sqawnInterval
-      value: 0.55
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 114569609843240596, guid: 77f0accfeb58ce24899bf3ac1e767629,
         type: 2}
       propertyPath: wave
       value: 
-      objectReference: {fileID: 1740028228139894, guid: 2175f830558df5c49bc4ee6a4dbcc7bb,
+      objectReference: {fileID: 1864485531897518, guid: c9c2380e2ece1234c91cd83d211d0238,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77f0accfeb58ce24899bf3ac1e767629, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1824773799 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1592868110418522, guid: 77f0accfeb58ce24899bf3ac1e767629,
-    type: 2}
-  m_PrefabInternal: {fileID: 1243036512}
---- !u!114 &1824773800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1824773799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 377821f929a18a04f86229ea3304d1ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wave: {fileID: 1740028228139894, guid: 0f3d220d77d2f7b4d88a70f54af2a789, type: 2}
-  args:
-    timeToFade: 3
-    maxExpandSize: 2.1
-    colorOfWave: {r: 0.53333336, g: 0.015686275, b: 0.8392157, a: 1}
-    shouldRotate: 0
-    isFlipped: 0
-  sqawnInterval: 0.1
 --- !u!1001 &1872512230
 Prefab:
   m_ObjectHideFlags: 0

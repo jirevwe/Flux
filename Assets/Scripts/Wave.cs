@@ -25,7 +25,7 @@ public class Wave : PoolObject {
         else if (!doRotate && isFlipped)
             transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 180));
 
-        gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(255,255,255,0), _args.timeToFade);
+        gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(1,1,1,0), _args.timeToFade * 1.5f);
         
         base.OnObjectReuse(args);
     }

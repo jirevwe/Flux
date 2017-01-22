@@ -15,7 +15,7 @@ public class Line : MonoBehaviour {
     {
         if(collision.tag == "dot")
         {
-            gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(255, 255, 255, 0), 1f).OnComplete(() => 
+            gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(1, 1, 1, 0), 1f).OnComplete(() => 
             {
                 gameObject.SetActive(false);
             });
