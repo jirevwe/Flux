@@ -1,0 +1,13 @@
+# Flux
+## Target Platform
+Android
+## Platform Version
+version >= API 15 (4.0.3 Upward)
+## Description
+- A game about an electron in a magnetic world...
+- A game of patience... 
+- A game of patterns...
+- FLUX.........................
+- Use your avatar (an electron) to navigate the edges of magnetic influence
+- Pass through all blue lines to unlock the portal.
+- The portal takes you to another level
