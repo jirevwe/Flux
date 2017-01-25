@@ -3,14 +3,6 @@ using DG.Tweening;
 
 public class Line : MonoBehaviour {
 
-	void Start () {
-        
-    }
-	
-	void Update () {
-		
-	}
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "dot")

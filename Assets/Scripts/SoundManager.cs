@@ -18,6 +18,9 @@ public class SoundManager : MonoBehaviour {
             instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        Application.targetFrameRate = 60;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     private void Update()
