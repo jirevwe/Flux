@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 1592868110418522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.915, y: 0.28, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,6 +57,9 @@ MonoBehaviour:
     timeToFade: 3
     maxExpandSize: 1.5
     colorOfWave: {r: 0.53333336, g: 0.015686275, b: 0.8392157, a: 1}
+    shouldRotate: 0
+    isFlipped: 0
+  sqawnInterval: 0
 --- !u!212 &212228195908434044
 SpriteRenderer:
   m_ObjectHideFlags: 1

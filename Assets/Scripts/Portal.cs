@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour {
 
+    public float finalSize;
+
 	void Start () {
-        transform.DOScale(.7f, 1).SetLoops(-1, LoopType.Yoyo);
+        transform.DOScale(finalSize, 1).SetLoops(-1, LoopType.Yoyo);
     }
 	
 	// Update is called once per frame

@@ -1,7 +1,9 @@
-﻿using UnityEngine;
-using System.Linq;
+﻿using DG.Tweening;
 using System.Collections;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Controller : MonoBehaviour {
 
@@ -9,6 +11,12 @@ public class Controller : MonoBehaviour {
     public GameObject[] lines;
     GameObject portal;
     GameObject dot;
+    [SerializeField]
+    GameObject tutorial;
+    [SerializeField]
+    Color color;
+    [SerializeField]
+    float showPlayerDelay;
 
     public static Controller Instance;
 
@@ -25,12 +33,19 @@ public class Controller : MonoBehaviour {
         dot.SetActive(false);
         portal.SetActive(false);
 
-        StartCoroutine(InitPlayer());
+        if(tutorial != null)
+        {
+            var text = tutorial.GetComponent<Text>();
+            DOTween.To(() => text.color, x => text.color = x, color, 1.5f).OnComplete(() => 
+            {
+                tutorial.GetComponent<Button>().interactable = true;
+            });
+        }
 	}
 
-    IEnumerator InitPlayer()
+    IEnumerator InitPlayer(float delay)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(delay);
         dot.SetActive(true);
     }
 	
@@ -42,5 +57,16 @@ public class Controller : MonoBehaviour {
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    public void DismissTutorial()
+    {
+        var text = tutorial.GetComponent<Text>();
+        tutorial.GetComponent<Button>().interactable = false;
+        DOTween.To(() => text.color, x => text.color = x, new Color(1,1,1,0), 1.5f).OnComplete(() =>
+        {
+            tutorial.gameObject.SetActive(false);
+        });
+        StartCoroutine(InitPlayer(showPlayerDelay));
     }
 }
