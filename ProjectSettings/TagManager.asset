@@ -43,8 +43,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: waves
+    uniqueID: 4200946155
+    locked: 0
   - name: line
     uniqueID: 2987901353
+    locked: 0
+  - name: dots
+    uniqueID: 2553765193
     locked: 0
   - name: Default
     uniqueID: 0

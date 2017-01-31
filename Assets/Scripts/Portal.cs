@@ -9,22 +9,24 @@ public class Portal : MonoBehaviour {
 	void Start () {
         transform.DOScale(finalSize, 1).SetLoops(-1, LoopType.Yoyo);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         transform.DOScale(.1f, 2f).OnComplete(() => 
         {
-            if (SceneManager.GetActiveScene().buildIndex == 8)
+            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {
-                SceneManager.LoadScene("Credits");
+                SceneManager.LoadScene("Splash");
             }
             else
+            {
+                AdManager.Instance.turns += 1;
+                if (AdManager.Instance.turns % 10 == 0)
+                {
+                    AdManager.Instance.ShowAd("video");
+                }
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         });
     }
 }
