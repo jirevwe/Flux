@@ -5,17 +5,20 @@ using DG.Tweening;
 public class MenuListItem : MonoBehaviour {
 
     public bool isExpanded = false;
-    public CanvasGroup expandedContent;
-    public LayoutElement layoutElement;
-    public RectTransform rectTranform;
+    CanvasGroup expandedContent;
+    LayoutElement layoutElement;
+    RectTransform rectTranform;
+    Button itemButton;
 
-    // Use this for initialization
     void OnEnable() { 
         rectTranform = GetComponent<RectTransform>();
 
         layoutElement = GetComponent<LayoutElement>();
         expandedContent = transform.Find("Expanded Content").GetComponent<CanvasGroup>();
         expandedContent.gameObject.SetActive(false);
+
+        itemButton = transform.Find("Item Button").GetComponent<Button>();
+        itemButton.onClick.AddListener(OnButtonClick);
     }
 
     public void OnButtonClick()
@@ -30,6 +33,7 @@ public class MenuListItem : MonoBehaviour {
             DOTween.To(() => expandedContent.alpha, x => expandedContent.alpha = x, 0f, .5f).OnComplete(() => {
                 DOTween.To(() => rectTranform.sizeDelta, x => rectTranform.sizeDelta = x, contracted, .5f).OnComplete(() =>
                 {
+                    expandedContent.interactable = false;
                     expandedContent.gameObject.SetActive(isExpanded);
                 });
             });
@@ -37,6 +41,7 @@ public class MenuListItem : MonoBehaviour {
         else
         {
             DOTween.To(() => rectTranform.sizeDelta, x => rectTranform.sizeDelta = x, expanded, .5f).OnComplete(() => {
+                expandedContent.interactable = true;
                 expandedContent.gameObject.SetActive(isExpanded);
             });
             DOTween.To(() => expandedContent.alpha, x => expandedContent.alpha = x, 1f, .1f);

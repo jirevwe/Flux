@@ -1,4 +1,4 @@
-﻿using admob;
+﻿//using admob;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour {
     
     void Start()
     {
-        Admob.Instance().initAdmob("ca-app-pub-4072806619028958/3995380022", "ca-app-pub-4072806619028958/3679152429");
+        //Admob.Instance().initAdmob("ca-app-pub-4072806619028958/3995380022", "ca-app-pub-4072806619028958/3679152429");
     }
 
     public static SoundManager Instance

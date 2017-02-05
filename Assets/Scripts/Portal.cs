@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour {
 
@@ -12,21 +11,12 @@ public class Portal : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        GetComponent<CircleCollider2D>().enabled = false;
+        Controller.Instance.started = false;
         transform.DOScale(.1f, 2f).OnComplete(() => 
         {
-            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
-            {
-                SceneManager.LoadScene("Splash");
-            }
-            else
-            {
-                AdManager.Instance.turns += 1;
-                if (AdManager.Instance.turns % 10 == 0)
-                {
-                    AdManager.Instance.ShowAd("video");
-                }
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
+            transform.DOKill(true);
+            GameManager.Instance.FinishLevel();
         });
     }
 }

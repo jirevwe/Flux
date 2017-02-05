@@ -56,7 +56,7 @@ MonoBehaviour:
   args:
     timeToFade: 3
     maxExpandSize: 1.5
-    colorOfWave: {r: 0.53333336, g: 0.015686275, b: 0.8392157, a: 1}
+    colorOfWave: {r: 0, g: 0, b: 0, a: 1}
     shouldRotate: 0
     isFlipped: 0
   sqawnInterval: 0

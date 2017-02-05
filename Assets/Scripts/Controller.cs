@@ -1,4 +1,4 @@
-﻿using admob;
+﻿//using admob;
 using DG.Tweening;
 using System.Collections;
 using System.Linq;
@@ -12,12 +12,20 @@ public class Controller : MonoBehaviour {
     public GameObject[] lines;
     GameObject portal;
     GameObject dot;
+
     [SerializeField]
     GameObject tutorial;
-    [SerializeField]
-    Color color;
+    Color color = Color.black;
     [SerializeField]
     float showPlayerDelay;
+
+    [Header("Level Time Stuff")]
+    [SerializeField]
+    Text levelTimeText;
+    [HideInInspector]
+    public float levelTime = 0, levelStartTime = 0;
+    [HideInInspector]
+    public bool started = false;
 
     public static Controller Instance;
 
@@ -27,7 +35,9 @@ public class Controller : MonoBehaviour {
     }
 
     void Start () {
-        Admob.Instance().showBannerRelative(AdSize.SmartBanner, AdPosition.TOP_CENTER, 0);
+//#if UNITY_ANDROID && !UNITY_EDITOR
+//        Admob.Instance().showBannerRelative(AdSize.SmartBanner, AdPosition.TOP_CENTER, 0);
+//#endif
 
         dot = GameObject.FindGameObjectWithTag("dot");
         lines = GameObject.FindGameObjectsWithTag("line");
@@ -36,7 +46,9 @@ public class Controller : MonoBehaviour {
         dot.SetActive(false);
         portal.SetActive(false);
 
-        if(tutorial != null)
+        levelTimeText.text = levelTime.ToString("0.00");
+
+        if (tutorial != null)
         {
             var text = tutorial.GetComponent<Text>();
             var bgImage = tutorial.transform.GetChild(0).GetComponent<Image>();
@@ -55,6 +67,8 @@ public class Controller : MonoBehaviour {
     {
         yield return new WaitForSeconds(delay);
         dot.SetActive(true);
+        started = true;
+        levelStartTime = Time.timeSinceLevelLoad;
     }
 	
 	void Update () {
@@ -64,6 +78,12 @@ public class Controller : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             SceneManager.LoadScene(0);
+        }
+
+        if(started)
+        {
+            levelTime = Time.timeSinceLevelLoad - levelStartTime;
+            levelTimeText.text = levelTime.ToString("0.00");
         }
     }
 

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "304439623643",
+    "firebase_url": "https://flux-73cca.firebaseio.com",
+    "project_id": "flux-73cca",
+    "storage_bucket": "flux-73cca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304439623643:android:36d777a4d528048d",
+        "android_client_info": {
+          "package_name": "com.bluescreen.Flux"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304439623643-9imp8q6i2ha8fr9ig1b1675b0i9cjo17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA73nzzpXWGydW5m8KUjGk2MPXvv7Emcac"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

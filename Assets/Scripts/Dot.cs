@@ -38,14 +38,15 @@ public class Dot : MonoBehaviour {
             CameraShake.shakeDuration = 0.1f;
             transform.DOKill();
             isDead = true;
-            AdManager.Instance.turns += 1;
-
+#if UNITY_ANDROID && !UNITY_EDITOR
+            GameManager.Instance.turns += 1;
+#endif
             gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(1, 1, 1, 0), 1f).OnComplete(() =>
             {
                 Controller.Instance.lines.ToList().ForEach(n =>
                 {
                     n.SetActive(true);
-                    n.GetComponent<SpriteRenderer>().DOColor(new Color(56f / 255f, 9f / 255f, 217f / 255f, 1), .5f);
+                    n.GetComponent<SpriteRenderer>().DOColor(Color.black, .5f);
                 });
 
                 GetComponent<CircleCollider2D>().enabled = true;
@@ -55,10 +56,13 @@ public class Dot : MonoBehaviour {
                 transform.position = checkPoint.transform.position;
                 isDead = false;
 
-                if(AdManager.Instance.turns%10 == 0)
+#if UNITY_ANDROID && !UNITY_EDITOR
+                GameManager.Instance.turns += 1;
+                if (GameManager.Instance.turns % 10 == 0)
                 {
-                    AdManager.Instance.ShowAd("video");
+                    GameManager.Instance.ShowAd("video");
                 }
+#endif
             });
         }
         if (other.gameObject.tag == "line")
