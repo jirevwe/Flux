@@ -23,9 +23,9 @@ public class ScrollViewAdapter : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.E))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("0");
         }
     }
 
@@ -80,13 +80,14 @@ public class ScrollViewAdapter : MonoBehaviour {
             results[i]             = new DataModel();
             results[i].title       = levelNames[i];
             results[i].levelNumber = levelNumbers[i];
-            try
+            LevelScore score = GameManager.Instance.currentPlayerScores.Find(n => n.level_number == results[i].levelNumber.Replace(".", ""));
+            if(score == null)
             {
-                //player data
-                results[i].bestTime = GameManager.Instance.currentPlayerScores[i].score;
-            }
-            catch (ArgumentOutOfRangeException) {
                 results[i].bestTime = 0f;
+            }
+            else
+            {
+                results[i].bestTime = score.score;
             }
         }
         OnDone(results);

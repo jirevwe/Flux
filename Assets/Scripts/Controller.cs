@@ -75,9 +75,9 @@ public class Controller : MonoBehaviour {
         var active = lines.Count( n => { return n.activeInHierarchy; } );
         portal.gameObject.SetActive(active == 0);
 
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.E))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("0");
         }
 
         if(started)

@@ -31,7 +31,7 @@ public class SoundManager : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex == 1)
+        if ((Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.E)) && SceneManager.GetActiveScene().buildIndex == 1)
         {
             Application.Quit();
         }

@@ -4,10 +4,14 @@ using UnityEngine.Advertisements;
 using System;
 using Firebase.Database;
 using System.Collections.Generic;
+using Firebase;
+using Firebase.Unity.Editor;
 
 public class GameManager : MonoBehaviour {
     private static GameManager instance = null;
+    public SplashScreen screen;
 
+    public DatabaseReference reference;
     public string appID = "1285424";
     public int turns = 0;
     public PlayerData currentPlayer;
@@ -16,6 +20,62 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance
     {
         get { return instance; }
+    }
+
+    private void Start()
+    {
+        string savedPlayerdata = PlayerPrefs.GetString(PlayerPrefSrings.player_data);
+        currentPlayer = JsonUtility.FromJson<PlayerData>(savedPlayerdata);
+        currentPlayerScores = new List<LevelScore>();
+
+#if UNITY_EDITOR
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://flux-73cca.firebaseio.com/");
+#endif
+        reference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        reference.Child("/players/" + GetUniqueID()).GetValueAsync().ContinueWith((task) =>
+        {
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                string data = snapshot.GetRawJsonValue();
+                JSONObject playerData = JSONObject.Create(data);
+
+                PlayerData thisPlayer = new PlayerData { name = playerData["name"].str, uuid = playerData["uuid"].str };
+
+                currentPlayer = thisPlayer;
+                PlayerPrefs.SetString(PlayerPrefSrings.player_data, JsonUtility.ToJson(thisPlayer));
+                PlayerPrefs.Save();
+
+                print("Done fetching player data");
+
+                reference.Child("/scores/").GetValueAsync().ContinueWith((innerTask) =>
+                {
+                    if (innerTask.IsCompleted)
+                    {
+                        snapshot = innerTask.Result;
+                        data = snapshot.GetRawJsonValue();
+                        JSONObject scoreData = JSONObject.Create(data);
+
+                        print("Keys : " + scoreData.keys.Count);
+                        for (int i = 0; i < scoreData.keys.Count; i++)
+                        {
+                            if (scoreData[scoreData.keys[i]].HasField(thisPlayer.uuid)) {
+                                LevelScore score = new LevelScore
+                                {
+                                    player_uuid = scoreData[scoreData.keys[i]][thisPlayer.uuid]["player_uuid"].str,
+                                    level_number = scoreData[scoreData.keys[i]][thisPlayer.uuid]["level_number"].str,
+                                    score = scoreData[scoreData.keys[i]][thisPlayer.uuid]["score"].f
+                                };
+                                currentPlayerScores.Add(score);
+                            }
+                        }
+                        print("Done fetching past score data");
+                        screen.isLoadingDone = true;
+                    }
+                });
+            }
+        });
     }
 
     void Awake()
@@ -93,10 +153,16 @@ public class GameManager : MonoBehaviour {
         LevelScore newScore = new LevelScore { level_number = SceneManager.GetActiveScene().name.Replace(".", ""),
                 player_uuid = currentPlayer.uuid,
                 score = Controller.Instance.levelTime };
-        LevelScore stroredScore = currentPlayerScores.Find(n => n.level_number == newScore.level_number);
-
-        if (stroredScore == null || stroredScore.score > newScore.score) {
+        LevelScore storedScore = currentPlayerScores.Find(n => n.level_number == newScore.level_number);
+        
+        //new level played or lower score for old level
+        if (storedScore == null || storedScore.score > newScore.score) {
             //update global database
+            if(storedScore == null)
+            {
+                currentPlayerScores.Add(newScore);
+            }else
+                storedScore.score = newScore.score;
             reference.Child("/scores/").Child(newScore.level_number).Child(newScore.player_uuid).UpdateChildrenAsync(newScore.ToDictionary()).ContinueWith((task) =>
             {
                 if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)

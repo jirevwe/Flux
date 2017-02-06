@@ -119,14 +119,14 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.bluescreen.Flux
-  bundleVersion: 0.0.20
+  bundleVersion: 0.0.21
   preloadedAssets:
   - {fileID: 8300000, guid: 50ce1a84e7297e7488dd35e7f32e81a1, type: 3}
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
   xboxOneDisableKinectGpuReservation: 0
   protectGraphicsMemory: 0
-  AndroidBundleVersionCode: 7
+  AndroidBundleVersionCode: 8
   AndroidMinSdkVersion: 15
   AndroidPreferredInstallLocation: 1
   aotOptions: 
