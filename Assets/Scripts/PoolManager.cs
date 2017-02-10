@@ -1,10 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-
     Dictionary<int, Queue<ObjectInstance>> poolDictionary = new Dictionary<int, Queue<ObjectInstance>>();
 
     static PoolManager _instance;
@@ -40,7 +39,7 @@ public class PoolManager : MonoBehaviour
             }
         }
     }
-
+    
     public void ReuseObject(GameObject prefab, Vector3 position, Quaternion rotation, object args)
     {
         int poolKey = prefab.GetInstanceID();
@@ -97,7 +96,7 @@ public class ObjectInstance {
 		}
 	}
 
-	public void Reuse(Vector3 position, Quaternion rotation, object args) {
+	public void Reuse(Vector3 position, Quaternion rotation, object args = null) {
 		gameObject.SetActive (true);
 		transform.position = position;
 		transform.rotation = rotation;

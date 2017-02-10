@@ -2,23 +2,38 @@
 
 public class PoolObject : MonoBehaviour {
     [HideInInspector]
-    public float timeToDie;
+    protected float timeToDie;
 
-    public void DieOH()
+    /// <summary>
+    /// Disable after a certain time has passed
+    /// </summary>
+    public void Disable()
     {
-        Destroy(timeToDie);
+        SetInactive(timeToDie);
     }
 
-    public virtual void Destroy(float time)
+    /// <summary>
+    /// Set inactive with delay
+    /// </summary>
+    /// <param name="time"></param>
+    void SetInactive(float time)
     {
-        Invoke("Destroy", time);
+        Invoke("SetInactive", time);
     }
 
-	public virtual void OnObjectReuse(object args) {
-        DieOH();
+    /// <summary>
+    /// set inactive immediately
+    /// </summary>
+    protected void SetInactive()
+    {
+        gameObject.SetActive(false);
     }
 
-	protected void Destroy() {
-		gameObject.SetActive (false);
-	}
+    /// <summary>
+    /// Resue this object
+    /// </summary>
+    /// <param name="args"> pass a data </param>
+    public virtual void OnObjectReuse(object args) {
+        Disable();
+    }
 }

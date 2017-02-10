@@ -272,7 +272,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Avoid the waves...
+  m_Text: 'Avoid the waves
+
+    Touch to move
 
 
     Touch to continue'
@@ -338,7 +340,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c221c754af126de42a85f36fb71bd192, type: 3}
-    m_FontSize: 72
+    m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -351,7 +353,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '1.2
 
-    The Pattern'
+    Flux'
 --- !u!222 &639916376
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -719,30 +721,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1522226493}
---- !u!1 &1824773799 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1592868110418522, guid: 77f0accfeb58ce24899bf3ac1e767629,
-    type: 2}
-  m_PrefabInternal: {fileID: 1243036512}
---- !u!114 &1824773800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1824773799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 377821f929a18a04f86229ea3304d1ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wave: {fileID: 1740028228139894, guid: 0f3d220d77d2f7b4d88a70f54af2a789, type: 2}
-  args:
-    timeToFade: 3
-    maxExpandSize: 2
-    colorOfWave: {r: 0, g: 0, b: 0, a: 1}
-    shouldRotate: 0
-    isFlipped: 0
-  sqawnInterval: 0.1
 --- !u!1001 &1872512230
 Prefab:
   m_ObjectHideFlags: 0
@@ -903,6 +881,8 @@ MonoBehaviour:
   tutorial: {fileID: 238157090}
   showPlayerDelay: 0
   levelTimeText: {fileID: 1981159860}
+  levelTime: 0
+  levelStartTime: 0
   started: 0
 --- !u!1 &2072383720
 GameObject:

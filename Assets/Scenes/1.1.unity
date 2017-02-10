@@ -163,6 +163,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Pass through the line...
 
+    Touch to move...
+
 
     Touch to continue'
 --- !u!222 &39108236
@@ -278,12 +280,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 70563821}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -7200}
+  m_LocalScale: {x: 80, y: 80, z: 80}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 1445192957}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &146156264
 GameObject:
@@ -566,7 +568,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c221c754af126de42a85f36fb71bd192, type: 3}
-    m_FontSize: 72
+    m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -579,7 +581,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '1.1
 
-    A line'
+    Line'
 --- !u!222 &234314100
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -810,6 +812,7 @@ RectTransform:
   m_Children:
   - {fileID: 39108234}
   - {fileID: 146156265}
+  - {fileID: 70563824}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -950,6 +953,8 @@ MonoBehaviour:
   tutorial: {fileID: 39108233}
   showPlayerDelay: 0
   levelTimeText: {fileID: 220304782}
+  levelTime: 0
+  levelStartTime: 0
   started: 0
 --- !u!1 &2130517067
 GameObject:

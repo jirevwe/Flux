@@ -12,7 +12,7 @@ public class Dot : MonoBehaviour {
     void Awake () {
         checkPoint = new GameObject();
         checkPoint.transform.position = transform.position;
-        transform.DORotate(new Vector3(0, 0, transform.localRotation.eulerAngles.z + 45f), .6f).SetLoops(-1, LoopType.Incremental);
+        //transform.DORotate(new Vector3(0, 0, transform.localRotation.eulerAngles.z + 45f), .6f).SetLoops(-1, LoopType.Incremental);
     }
 
     void FixedUpdate()

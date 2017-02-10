@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Advertisements;
-using System;
+﻿using Firebase;
 using Firebase.Database;
-using System.Collections.Generic;
-using Firebase;
 using Firebase.Unity.Editor;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Advertisements;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     private static GameManager instance = null;
@@ -32,48 +32,74 @@ public class GameManager : MonoBehaviour {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://flux-73cca.firebaseio.com/");
 #endif
         reference = FirebaseDatabase.DefaultInstance.RootReference;
-
-        reference.Child("/players/" + GetUniqueID()).GetValueAsync().ContinueWith((task) =>
+       
+        reference.GetValueAsync().ContinueWith((t) => 
         {
-            if (task.IsCompleted)
+            if(t.IsCompleted)
             {
-                DataSnapshot snapshot = task.Result;
-                string data = snapshot.GetRawJsonValue();
-                JSONObject playerData = JSONObject.Create(data);
-
-                PlayerData thisPlayer = new PlayerData { name = playerData["name"].str, uuid = playerData["uuid"].str };
-
-                currentPlayer = thisPlayer;
-                PlayerPrefs.SetString(PlayerPrefSrings.player_data, JsonUtility.ToJson(thisPlayer));
-                PlayerPrefs.Save();
-
-                print("Done fetching player data");
-
-                reference.Child("/scores/").GetValueAsync().ContinueWith((innerTask) =>
+                var database = JSONObject.Create(t.Result.GetRawJsonValue());
+                //print(database.Print());
+                if(database.HasField("players")) //at least one player has been registered
                 {
-                    if (innerTask.IsCompleted)
+                    if (database["players"].HasField(GetUniqueID())) //this player has been registered
                     {
-                        snapshot = innerTask.Result;
-                        data = snapshot.GetRawJsonValue();
-                        JSONObject scoreData = JSONObject.Create(data);
-
-                        print("Keys : " + scoreData.keys.Count);
-                        for (int i = 0; i < scoreData.keys.Count; i++)
+                        reference.Child("/players/" + GetUniqueID()).GetValueAsync().ContinueWith((task) =>
                         {
-                            if (scoreData[scoreData.keys[i]].HasField(thisPlayer.uuid)) {
-                                LevelScore score = new LevelScore
-                                {
-                                    player_uuid = scoreData[scoreData.keys[i]][thisPlayer.uuid]["player_uuid"].str,
-                                    level_number = scoreData[scoreData.keys[i]][thisPlayer.uuid]["level_number"].str,
-                                    score = scoreData[scoreData.keys[i]][thisPlayer.uuid]["score"].f
-                                };
-                                currentPlayerScores.Add(score);
+                            if (task.IsFaulted)
+                            {
+                                print("An error occured while fetching data from the server");
                             }
-                        }
-                        print("Done fetching past score data");
+                            else if (task.IsCompleted)
+                            {
+                                DataSnapshot snapshot = task.Result;
+                                string data = snapshot.GetRawJsonValue();
+                                JSONObject playerData = JSONObject.Create(data);
+
+                                PlayerData thisPlayer = new PlayerData { name = playerData["name"].str, uuid = playerData["uuid"].str };
+
+                                currentPlayer = thisPlayer;
+                                PlayerPrefs.SetString(PlayerPrefSrings.player_data, JsonUtility.ToJson(thisPlayer));
+                                PlayerPrefs.Save();
+
+                                print("Done fetching player data");
+
+                                reference.Child("/scores/").GetValueAsync().ContinueWith((innerTask) =>
+                                {
+                                    if (innerTask.IsCompleted)
+                                    {
+                                        snapshot = innerTask.Result;
+                                        data = snapshot.GetRawJsonValue();
+                                        JSONObject scoreData = JSONObject.Create(data);
+
+                                        //print("Keys : " + scoreData.keys.Count);
+                                        for (int i = 0; i < scoreData.keys.Count; i++)
+                                        {
+                                            if (scoreData[scoreData.keys[i]].HasField(thisPlayer.uuid)) {
+                                                LevelScore score = new LevelScore
+                                                {
+                                                    player_uuid = scoreData[scoreData.keys[i]][thisPlayer.uuid]["player_uuid"].str,
+                                                    level_number = scoreData[scoreData.keys[i]][thisPlayer.uuid]["level_number"].str,
+                                                    score = scoreData[scoreData.keys[i]][thisPlayer.uuid]["score"].f
+                                                };
+                                                currentPlayerScores.Add(score);
+                                            }
+                                        }
+                                        print("Done fetching past score data");
+                                        screen.isLoadingDone = true;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else //this player has not been registered
+                    {
                         screen.isLoadingDone = true;
                     }
-                });
+                }
+                else //no player has been registered
+                {
+                    screen.isLoadingDone = true;
+                }
             }
         });
     }
@@ -154,37 +180,23 @@ public class GameManager : MonoBehaviour {
                 player_uuid = currentPlayer.uuid,
                 score = Controller.Instance.levelTime };
         LevelScore storedScore = currentPlayerScores.Find(n => n.level_number == newScore.level_number);
-        
+
         //new level played or lower score for old level
-        if (storedScore == null || storedScore.score > newScore.score) {
+        if (storedScore == null || storedScore.score > newScore.score)
+        {
             //update global database
-            if(storedScore == null)
+            if (storedScore == null)
             {
                 currentPlayerScores.Add(newScore);
-            }else
-                storedScore.score = newScore.score;
-            reference.Child("/scores/").Child(newScore.level_number).Child(newScore.player_uuid).UpdateChildrenAsync(newScore.ToDictionary()).ContinueWith((task) =>
+            }
+            else
             {
-                if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
-                {
-                    SceneManager.LoadScene("Splash");
-                }
-                else
-                {
-#if UNITY_ANDROID && !UNITY_EDITOR
-                turns += 1;
-                if (turns % 10 == 0)
-                {
-                    ShowAd("video");
-                }
-#endif
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                }
+                storedScore.score = newScore.score;
+            }
 
-            });
-        }
-        else
-        {
+            //update score in the background
+            reference.Child("/scores/").Child(newScore.level_number).Child(newScore.player_uuid).UpdateChildrenAsync(newScore.ToDictionary());
+
             if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {
                 SceneManager.LoadScene("Splash");

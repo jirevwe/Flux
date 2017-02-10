@@ -346,11 +346,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Pass through the lines...
+  m_Text: 'Pass through the lines
 
+    Avoid the waves
 
-    Avoid the waves...
-
+    Touch to move
 
 
     Touch to continue'
@@ -523,7 +523,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4612491639955508, guid: 6b8956a85ec5d854a95a58f7aab91187, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.53
+      value: -1.67
       objectReference: {fileID: 0}
     - target: {fileID: 4612491639955508, guid: 6b8956a85ec5d854a95a58f7aab91187, type: 2}
       propertyPath: m_LocalPosition.y
@@ -811,8 +811,18 @@ Prefab:
         type: 2}
       propertyPath: wave
       value: 
-      objectReference: {fileID: 1740028228139894, guid: 2175f830558df5c49bc4ee6a4dbcc7bb,
+      objectReference: {fileID: 1740028228139894, guid: a1ccb307d2cb26d45965dc2089cd4e90,
         type: 2}
+    - target: {fileID: 114569609843240596, guid: 77f0accfeb58ce24899bf3ac1e767629,
+        type: 2}
+      propertyPath: args.specialMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114569609843240596, guid: 77f0accfeb58ce24899bf3ac1e767629,
+        type: 2}
+      propertyPath: args.initialScale
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77f0accfeb58ce24899bf3ac1e767629, type: 2}
   m_IsPrefabParent: 0
@@ -940,7 +950,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c221c754af126de42a85f36fb71bd192, type: 3}
-    m_FontSize: 72
+    m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -953,7 +963,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '1.4
 
-    What???'
+    One more'
 --- !u!222 &1695883300
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -969,7 +979,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4612491639955508, guid: 6b8956a85ec5d854a95a58f7aab91187, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4612491639955508, guid: 6b8956a85ec5d854a95a58f7aab91187, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1033,30 +1043,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b8956a85ec5d854a95a58f7aab91187, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1824773799 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1592868110418522, guid: 77f0accfeb58ce24899bf3ac1e767629,
-    type: 2}
-  m_PrefabInternal: {fileID: 1243036512}
---- !u!114 &1824773800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1824773799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 377821f929a18a04f86229ea3304d1ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wave: {fileID: 1740028228139894, guid: 0f3d220d77d2f7b4d88a70f54af2a789, type: 2}
-  args:
-    timeToFade: 3
-    maxExpandSize: 2.1
-    colorOfWave: {r: 0, g: 0, b: 0, a: 1}
-    shouldRotate: 0
-    isFlipped: 0
-  sqawnInterval: 0.1
 --- !u!1001 &1872512230
 Prefab:
   m_ObjectHideFlags: 0
@@ -1070,7 +1056,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4683658421140968, guid: 66c91601655e08c4e912989f842b97d3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4683658421140968, guid: 66c91601655e08c4e912989f842b97d3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1108,7 +1094,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4612491639955508, guid: 6b8956a85ec5d854a95a58f7aab91187, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.58
+      value: 1.65
       objectReference: {fileID: 0}
     - target: {fileID: 4612491639955508, guid: 6b8956a85ec5d854a95a58f7aab91187, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1212,6 +1198,8 @@ MonoBehaviour:
   tutorial: {fileID: 238157090}
   showPlayerDelay: 0
   levelTimeText: {fileID: 172485232}
+  levelTime: 0
+  levelStartTime: 0
   started: 0
 --- !u!1 &2130517067
 GameObject:

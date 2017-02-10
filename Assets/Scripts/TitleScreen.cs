@@ -32,13 +32,25 @@ public class TitleScreen : MonoBehaviour {
 
     public void RegisterUser()
     {
-        PlayerData data = new PlayerData { name = nameText.text, uuid = GameManager.GetUniqueID() };
+        print(GameManager.Instance.currentPlayer == null);
+        PlayerData data;
+        if (nameText.text.Length > 0)
+        {
+            data = new PlayerData { name = nameText.text, uuid = GameManager.GetUniqueID() };
+        }
+        else
+        {
+            data = new PlayerData { name = "Your Display Name", uuid = GameManager.GetUniqueID() };
+        }
+        GameManager.Instance.currentPlayer = data;
         string json = JsonUtility.ToJson(data);
         reference.Child("/players/" + GameManager.GetUniqueID()).SetRawJsonValueAsync(json);
     }
 
     public void StartGame()
     {
+        if (nameText.text.Length == 0)
+            RegisterUser();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

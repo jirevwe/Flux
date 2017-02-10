@@ -1,13 +1,22 @@
 ﻿using System.Collections;
 using UnityEngine;
+ public enum Special
+{
+    none = 0,
+    shouldRotate = 1,
+    isFlipped = 2,
+    shouldSpiral = 3,
+    shouldMove = 4
+}
 
 [System.Serializable]
 public class WaveData
 {
+    public float initialScale;
     public float timeToFade;
     public float maxExpandSize;
     public Color colorOfWave;
-    public bool shouldRotate, isFlipped;
+    public Special specialMove;
     public WaveData()
     { }
 }

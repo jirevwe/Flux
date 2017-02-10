@@ -4,28 +4,37 @@ using System.Collections;
 
 public class Wave : PoolObject {
 
-    public bool doRotate, isFlipped;
-
     public override void OnObjectReuse(object args)
     {
-        var _args = (WaveData)args;
-        timeToDie = _args.timeToFade;
-        doRotate = _args.shouldRotate;
-        isFlipped = _args.isFlipped;
+        var _args  = (WaveData)args;
+        timeToDie  = _args.timeToFade;
 
         GetComponent<PolygonCollider2D>().enabled = true;
         StartCoroutine(Disable(3 * _args.timeToFade / 4));
         
-        transform.localScale = Vector3.zero;
+        transform.localScale = Vector3.one * _args.initialScale;
         gameObject.GetComponent<SpriteRenderer>().color = _args.colorOfWave;
         
         transform.DOScale(_args.maxExpandSize, _args.timeToFade);
-        if (doRotate && !isFlipped)
-            transform.DORotate(new Vector3(0, 0, 60f), _args.timeToFade);
-        else if (!doRotate && isFlipped)
-            transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 180));
 
-        gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(1,1,1,0), _args.timeToFade * 1.5f);
+        switch(_args.specialMove)
+        {
+            case Special.isFlipped:
+                transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 180));
+                break;
+            case Special.shouldMove:
+                
+                break;
+            case Special.shouldRotate:
+                transform.DORotate(new Vector3(0, 0, transform.localRotation.eulerAngles.z + 45f), 1f).SetLoops(-1, LoopType.Incremental);
+                break;
+            case Special.shouldSpiral:
+                transform.DORotate(new Vector3(0, 0, 60f), _args.timeToFade);
+                break;
+            case Special.none:
+                break;
+        }
+        gameObject.GetComponent<SpriteRenderer>().DOColor(new Color(1,1,1,0), _args.timeToFade);
         
         base.OnObjectReuse(args);
     }

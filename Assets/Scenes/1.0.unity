@@ -294,7 +294,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Enter the circle...
+  m_Text: 'Enter the circle
+
+    Touch to move
 
 
     Touch to continue'
@@ -642,12 +644,12 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c221c754af126de42a85f36fb71bd192, type: 3}
-    m_FontSize: 72
+    m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 72
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -655,7 +657,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '1.0
 
-    The beginning'
+    Circle'
 --- !u!222 &1495374254
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -904,6 +906,9 @@ MonoBehaviour:
   tutorial: {fileID: 390550744}
   showPlayerDelay: 1
   levelTimeText: {fileID: 90702999}
+  levelTime: 0
+  levelStartTime: 0
+  started: 0
 --- !u!1 &2130517067
 GameObject:
   m_ObjectHideFlags: 0
