@@ -10,6 +10,7 @@ public class SplashScreen : MonoBehaviour {
     public Image logoImage;
     public Text loadingText;
     public bool isLoadingDone = false;
+    int timeSpentLoading = 0; 
 
     void Start () {
         logoImage.gameObject.SetActive(true);
@@ -38,6 +39,22 @@ public class SplashScreen : MonoBehaviour {
         });
     }
 
+    IEnumerator NetworkStatusCheck()
+    {
+        yield return new WaitForSeconds(1f);
+        if(!isLoadingDone && timeSpentLoading < 10)
+        {
+            StartCoroutine(NetworkStatusCheck());
+            timeSpentLoading++;
+        }
+        else if(timeSpentLoading >= 10 && !isLoadingDone)
+        {
+            Firebase.Database.DatabaseReference.GoOffline();
+            StopCoroutine(NetworkStatusCheck());
+            isLoadingDone = true;
+        }
+    }
+
     IEnumerator Load()
     {
         yield return new WaitForSeconds(.5f);
@@ -58,6 +75,7 @@ public class SplashScreen : MonoBehaviour {
     public void StartLoad()
     {
         StartCoroutine(Load());
+        StartCoroutine(NetworkStatusCheck());
     }
 
     public void StopLoad()

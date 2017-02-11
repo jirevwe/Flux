@@ -3,10 +3,12 @@ using UnityEngine;
  public enum Special
 {
     none = 0,
-    shouldRotate = 1,
-    isFlipped = 2,
-    shouldSpiral = 3,
-    shouldMove = 4
+    shouldRotateLeft = 1,
+    shouldRotateRight = 2,
+    isFlipped = 3,
+    shouldSpiralLeft = 4,
+    shouldSpiralRight = 5,
+    shouldMove = 6
 }
 
 [System.Serializable]

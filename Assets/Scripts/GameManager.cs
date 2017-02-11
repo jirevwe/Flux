@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     public string appID = "1285424";
     public int turns = 0;
     public PlayerData currentPlayer;
+    public bool onlineMode = false;
     public List<LevelScore> currentPlayerScores = new List<LevelScore>();
 
     public static GameManager Instance
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour {
         string savedPlayerdata = PlayerPrefs.GetString(PlayerPrefSrings.player_data);
         currentPlayer = JsonUtility.FromJson<PlayerData>(savedPlayerdata);
         currentPlayerScores = new List<LevelScore>();
+        onlineMode = false;
 
 #if UNITY_EDITOR
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://flux-73cca.firebaseio.com/");
@@ -85,7 +87,7 @@ public class GameManager : MonoBehaviour {
                                             }
                                         }
                                         print("Done fetching past score data");
-                                        screen.isLoadingDone = true;
+                                        screen.isLoadingDone = onlineMode = true;
                                     }
                                 });
                             }
@@ -93,12 +95,12 @@ public class GameManager : MonoBehaviour {
                     }
                     else //this player has not been registered
                     {
-                        screen.isLoadingDone = true;
+                        screen.isLoadingDone = onlineMode = true;
                     }
                 }
                 else //no player has been registered
                 {
-                    screen.isLoadingDone = true;
+                    screen.isLoadingDone = onlineMode = true;
                 }
             }
         });
@@ -194,8 +196,11 @@ public class GameManager : MonoBehaviour {
                 storedScore.score = newScore.score;
             }
 
-            //update score in the background
-            reference.Child("/scores/").Child(newScore.level_number).Child(newScore.player_uuid).UpdateChildrenAsync(newScore.ToDictionary());
+            if (onlineMode)
+            {
+                //update score in the background
+                reference.Child("/scores/").Child(newScore.level_number).Child(newScore.player_uuid).UpdateChildrenAsync(newScore.ToDictionary());
+            }
 
             if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {

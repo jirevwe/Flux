@@ -513,6 +513,7 @@ MonoBehaviour:
   - Vertical
   - Square
   - Cross
+  - Gears
   levelNumbers:
   - 1.0
   - 1.1
@@ -528,6 +529,7 @@ MonoBehaviour:
   - 3.1
   - 3.2
   - 3.3
+  - 3.4
   prefab: {fileID: 224835371000482370, guid: c8bc947432f0d384aa3e558b165c8870, type: 2}
   countText: {fileID: 0}
   scrollView: {fileID: 542729093}

@@ -346,9 +346,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '2.4
+  m_Text: '3.4
 
-    Patience'
+    Gears'
 --- !u!222 &263825047
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -773,12 +773,22 @@ Prefab:
         type: 2}
       propertyPath: wave
       value: 
-      objectReference: {fileID: 1864485531897518, guid: c9c2380e2ece1234c91cd83d211d0238,
+      objectReference: {fileID: 1864485531897518, guid: 352c700710801104892110d433953355,
         type: 2}
     - target: {fileID: 114569609843240596, guid: 77f0accfeb58ce24899bf3ac1e767629,
         type: 2}
       propertyPath: args.timeToFade
-      value: 3.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114569609843240596, guid: 77f0accfeb58ce24899bf3ac1e767629,
+        type: 2}
+      propertyPath: args.initialScale
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114569609843240596, guid: 77f0accfeb58ce24899bf3ac1e767629,
+        type: 2}
+      propertyPath: args.specialMove
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77f0accfeb58ce24899bf3ac1e767629, type: 2}
@@ -959,14 +969,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377821f929a18a04f86229ea3304d1ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wave: {fileID: 1740028228139894, guid: a1ccb307d2cb26d45965dc2089cd4e90, type: 2}
+  wave: {fileID: 1864485531897518, guid: 352c700710801104892110d433953355, type: 2}
   args:
-    initialScale: 0
-    timeToFade: 3
-    maxExpandSize: 1.6
+    initialScale: 1.5
+    timeToFade: 1
+    maxExpandSize: 1.5
     colorOfWave: {r: 0, g: 0, b: 0, a: 1}
-    specialMove: 4
-  sqawnInterval: 0.2
+    specialMove: 5
+  sqawnInterval: 1
 --- !u!1001 &1872512230
 Prefab:
   m_ObjectHideFlags: 0
@@ -980,7 +990,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4683658421140968, guid: 66c91601655e08c4e912989f842b97d3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4683658421140968, guid: 66c91601655e08c4e912989f842b97d3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1086,7 +1096,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2064538083}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3292713, y: -1.6232339, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1105,7 +1115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines: []
   tutorial: {fileID: 238157090}
-  showPlayerDelay: 3
+  showPlayerDelay: 1
   levelTimeText: {fileID: 515193760}
   levelTime: 0
   levelStartTime: 0

@@ -25,11 +25,17 @@ public class Wave : PoolObject {
             case Special.shouldMove:
                 
                 break;
-            case Special.shouldRotate:
-                transform.DORotate(new Vector3(0, 0, transform.localRotation.eulerAngles.z + 45f), 1f).SetLoops(-1, LoopType.Incremental);
+            case Special.shouldRotateLeft:
+                transform.DORotate(new Vector3(0, 0, transform.localRotation.eulerAngles.z + 45f), 1f);
                 break;
-            case Special.shouldSpiral:
+            case Special.shouldRotateRight:
+                transform.DORotate(new Vector3(0, 0, transform.localRotation.eulerAngles.z - 45f), 1f);
+                break;
+            case Special.shouldSpiralLeft:
                 transform.DORotate(new Vector3(0, 0, 60f), _args.timeToFade);
+                break;
+            case Special.shouldSpiralRight:
+                transform.DORotate(new Vector3(0, 0, -60f), _args.timeToFade);
                 break;
             case Special.none:
                 break;
