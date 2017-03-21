@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelNames:
-  - Circle
+  - Start
   - Line
   - Flux
   - The sides
@@ -511,8 +511,8 @@ MonoBehaviour:
   - Patience
   - Acute
   - Vertical
-  - Square
   - Cross
+  - Square
   - Gears
   levelNumbers:
   - 1.0

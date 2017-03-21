@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+
  public enum Special
 {
     none = 0,
@@ -24,18 +25,10 @@ public class WaveData
 }
 
 public class BadDot : MonoBehaviour {
-
-    public static BadDot Instance;
-
     public GameObject wave;
 
     public WaveData args;
     public float sqawnInterval;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     void Start () {
         StartCoroutine(DOWave());

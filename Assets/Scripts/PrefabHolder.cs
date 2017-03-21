@@ -4,13 +4,15 @@ public class PrefabHolder : MonoBehaviour {
 
     public static PrefabHolder instance;
 
-    [HideInInspector]
-    public PoolManager pool;
+    PoolManager pool;
 
     public GameObject waveRect;
-    public GameObject waveCircle;
-    public GameObject waveTri;
     public GameObject waveRectCut;
+
+    public GameObject waveCircle;
+    public GameObject waveCircleCut;
+
+    public GameObject waveTri;
 
     public int amount;
 
@@ -18,6 +20,7 @@ public class PrefabHolder : MonoBehaviour {
         pool = PoolManager.instance;
         instance = this;
 
+        pool.CreatePool(waveCircleCut, amount);
         pool.CreatePool(waveRectCut, amount);
         pool.CreatePool(waveCircle, amount);
         pool.CreatePool(waveRect, amount);

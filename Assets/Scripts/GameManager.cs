@@ -1,7 +1,4 @@
-﻿using Firebase;
-using Firebase.Database;
-using Firebase.Unity.Editor;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -11,99 +8,115 @@ public class GameManager : MonoBehaviour {
     private static GameManager instance = null;
     public SplashScreen screen;
 
-    public DatabaseReference reference;
+    public static GameObject playerDot;
+    public Controller controller;
+
+    //public DatabaseReference reference;
     public string appID = "1285424";
     public int turns = 0;
     public PlayerData currentPlayer;
     public bool onlineMode = false;
-    public List<LevelScore> currentPlayerScores = new List<LevelScore>();
 
     public static GameManager Instance
     {
-        get { return instance; }
+        get {
+            if(instance == null)
+            {
+                GameObject g = new GameObject("Game Manager");
+                g.AddComponent<GameManager>();
+                instance = g.GetComponent<GameManager>();
+                return instance;
+            }
+            return instance;
+        }
     }
 
     private void Start()
     {
+
         string savedPlayerdata = PlayerPrefs.GetString(PlayerPrefSrings.player_data);
+        print(savedPlayerdata);
         currentPlayer = JsonUtility.FromJson<PlayerData>(savedPlayerdata);
-        currentPlayerScores = new List<LevelScore>();
         onlineMode = false;
+        screen.isLoadingDone = true;
 
-#if UNITY_EDITOR
-        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://flux-73cca.firebaseio.com/");
-#endif
-        reference = FirebaseDatabase.DefaultInstance.RootReference;
-       
-        reference.GetValueAsync().ContinueWith((t) => 
-        {
-            if(t.IsCompleted)
-            {
-                var database = JSONObject.Create(t.Result.GetRawJsonValue());
-                //print(database.Print());
-                if(database.HasField("players")) //at least one player has been registered
-                {
-                    if (database["players"].HasField(GetUniqueID())) //this player has been registered
-                    {
-                        reference.Child("/players/" + GetUniqueID()).GetValueAsync().ContinueWith((task) =>
-                        {
-                            if (task.IsFaulted)
-                            {
-                                print("An error occured while fetching data from the server");
-                            }
-                            else if (task.IsCompleted)
-                            {
-                                DataSnapshot snapshot = task.Result;
-                                string data = snapshot.GetRawJsonValue();
-                                JSONObject playerData = JSONObject.Create(data);
+        playerDot = GameObject.FindGameObjectWithTag("dot");
+        controller = GameObject.FindGameObjectWithTag("controller").GetComponent<Controller>();
+        #region firebase code
+        //#if UNITY_EDITOR
+        //        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://flux-73cca.firebaseio.com/");
+        //#endif
+        //        reference = FirebaseDatabase.DefaultInstance.RootReference;
 
-                                PlayerData thisPlayer = new PlayerData { name = playerData["name"].str, uuid = playerData["uuid"].str };
+        //        reference.GetValueAsync().ContinueWith((t) => 
+        //        {
+        //            if(t.IsCompleted)
+        //            {
+        //                var database = JSONObject.Create(t.Result.GetRawJsonValue());
 
-                                currentPlayer = thisPlayer;
-                                PlayerPrefs.SetString(PlayerPrefSrings.player_data, JsonUtility.ToJson(thisPlayer));
-                                PlayerPrefs.Save();
+        //                if (database.HasField("players")) //at least one player has been registered
+        //                {
+        //                    if (database["players"].HasField(GetUniqueID())) //this player has been registered
+        //                    {
+        //                        reference.Child("/players/" + GetUniqueID()).GetValueAsync().ContinueWith((task) =>
+        //                        {
+        //                            if (task.IsFaulted)
+        //                            {
+        //                                print("An error occured while fetching data from the server");
+        //                            }
+        //                            else if (task.IsCompleted)
+        //                            {
+        //                                DataSnapshot snapshot = task.Result;
+        //                                string data = snapshot.GetRawJsonValue();
+        //                                JSONObject playerData = JSONObject.Create(data);
 
-                                print("Done fetching player data");
+        //                                PlayerData thisPlayer = new PlayerData { name = playerData["name"].str, uuid = playerData["uuid"].str };
 
-                                reference.Child("/scores/").GetValueAsync().ContinueWith((innerTask) =>
-                                {
-                                    if (innerTask.IsCompleted)
-                                    {
-                                        snapshot = innerTask.Result;
-                                        data = snapshot.GetRawJsonValue();
-                                        JSONObject scoreData = JSONObject.Create(data);
+        //                                currentPlayer = thisPlayer;
+        //                                PlayerPrefs.SetString(PlayerPrefSrings.player_data, JsonUtility.ToJson(thisPlayer));
+        //                                PlayerPrefs.Save();
 
-                                        //print("Keys : " + scoreData.keys.Count);
-                                        for (int i = 0; i < scoreData.keys.Count; i++)
-                                        {
-                                            if (scoreData[scoreData.keys[i]].HasField(thisPlayer.uuid)) {
-                                                LevelScore score = new LevelScore
-                                                {
-                                                    player_uuid = scoreData[scoreData.keys[i]][thisPlayer.uuid]["player_uuid"].str,
-                                                    level_number = scoreData[scoreData.keys[i]][thisPlayer.uuid]["level_number"].str,
-                                                    score = scoreData[scoreData.keys[i]][thisPlayer.uuid]["score"].f
-                                                };
-                                                currentPlayerScores.Add(score);
-                                            }
-                                        }
-                                        print("Done fetching past score data");
-                                        screen.isLoadingDone = onlineMode = true;
-                                    }
-                                });
-                            }
-                        });
-                    }
-                    else //this player has not been registered
-                    {
-                        screen.isLoadingDone = onlineMode = true;
-                    }
-                }
-                else //no player has been registered
-                {
-                    screen.isLoadingDone = onlineMode = true;
-                }
-            }
-        });
+        //                                print("Done fetching player data");
+
+        //                                reference.Child("/scores/").GetValueAsync().ContinueWith((innerTask) =>
+        //                                {
+        //                                    if (innerTask.IsCompleted)
+        //                                    {
+        //                                        snapshot = innerTask.Result;
+        //                                        data = snapshot.GetRawJsonValue();
+        //                                        JSONObject scoreData = JSONObject.Create(data);
+
+        //                                        for (int i = 0; i < scoreData.keys.Count; i++)
+        //                                        {
+        //                                            if (scoreData[scoreData.keys[i]].HasField(thisPlayer.uuid)) {
+        //                                                LevelScore score = new LevelScore
+        //                                                {
+        //                                                    player_uuid = scoreData[scoreData.keys[i]][thisPlayer.uuid]["player_uuid"].str,
+        //                                                    level_number = scoreData[scoreData.keys[i]][thisPlayer.uuid]["level_number"].str,
+        //                                                    score = scoreData[scoreData.keys[i]][thisPlayer.uuid]["score"].f
+        //                                                };
+        //                                                currentPlayerScores.Add(score);
+        //                                            }
+        //                                        }
+        //                                        print("Done fetching past score data");
+        //                                        screen.isLoadingDone = onlineMode = true;
+        //                                    }
+        //                                });
+        //                            }
+        //                        });
+        //                    }
+        //                    else //this player has not been registered
+        //                    {
+        //                        screen.isLoadingDone = onlineMode = true;
+        //                    }
+        //                }
+        //                else //no player has been registered
+        //                {
+        //                    screen.isLoadingDone = onlineMode = true;
+        //                }
+        //            }
+        //        });
+        #endregion
     }
 
     void Awake()
@@ -118,6 +131,9 @@ public class GameManager : MonoBehaviour {
             instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        Application.targetFrameRate = 60;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     public static string GetUniqueID()
@@ -176,12 +192,8 @@ public class GameManager : MonoBehaviour {
 
     public void FinishLevel()
     {
-        var reference = FirebaseDatabase.DefaultInstance.RootReference;
-
-        LevelScore newScore = new LevelScore { level_number = SceneManager.GetActiveScene().name.Replace(".", ""),
-                player_uuid = currentPlayer.uuid,
-                score = Controller.Instance.levelTime };
-        LevelScore storedScore = currentPlayerScores.Find(n => n.level_number == newScore.level_number);
+        LevelScore newScore = new LevelScore { level_number = SceneManager.GetActiveScene().name.Replace(".", ""), score = controller.levelTime };
+        LevelScore storedScore = currentPlayer.scores.Find(n => n.level_number == newScore.level_number);
 
         //new level played or lower score for old level
         if (storedScore == null || storedScore.score > newScore.score)
@@ -189,18 +201,19 @@ public class GameManager : MonoBehaviour {
             //update global database
             if (storedScore == null)
             {
-                currentPlayerScores.Add(newScore);
+                currentPlayer.scores.Add(newScore);
             }
             else
             {
                 storedScore.score = newScore.score;
             }
+            SavePlayerData();
 
-            if (onlineMode)
-            {
-                //update score in the background
-                reference.Child("/scores/").Child(newScore.level_number).Child(newScore.player_uuid).UpdateChildrenAsync(newScore.ToDictionary());
-            }
+            //if (onlineMode)
+            //{
+            //    //update score in the background
+            //    reference.Child("/scores/").Child(newScore.level_number).Child(newScore.player_uuid).UpdateChildrenAsync(newScore.ToDictionary());
+            //}
 
             if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {
@@ -220,13 +233,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void OnApplicationPause(bool pause)
-    {
-        PlayerPrefs.SetString(PlayerPrefSrings.player_data, JsonUtility.ToJson(currentPlayer));
-        PlayerPrefs.Save();
-    }
-
-    private void OnApplicationQuit()
+    public void SavePlayerData()
     {
         PlayerPrefs.SetString(PlayerPrefSrings.player_data, JsonUtility.ToJson(currentPlayer));
         PlayerPrefs.Save();

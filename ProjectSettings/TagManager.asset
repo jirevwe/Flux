@@ -9,6 +9,7 @@ TagManager:
   - dot
   - line
   - portal
+  - controller
   layers:
   - Default
   - TransparentFX

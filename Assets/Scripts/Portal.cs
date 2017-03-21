@@ -12,7 +12,8 @@ public class Portal : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GetComponent<CircleCollider2D>().enabled = false;
-        Controller.Instance.started = false;
+        GameManager.Instance.controller.started = false;
+
         transform.DOScale(.1f, 2f).OnComplete(() => 
         {
             transform.DOKill(true);

@@ -606,11 +606,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screen: {fileID: 2080365847}
+  controller: {fileID: 0}
   appID: 1285424
   turns: 0
   currentPlayer:
     name: 
     uuid: 
+  onlineMode: 0
   currentPlayerScores: []
 --- !u!4 &1972966502
 Transform:
@@ -619,7 +621,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1972966500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8925616, y: -0.07743392, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -49,7 +49,6 @@ public class SplashScreen : MonoBehaviour {
         }
         else if(timeSpentLoading >= 10 && !isLoadingDone)
         {
-            Firebase.Database.DatabaseReference.GoOffline();
             StopCoroutine(NetworkStatusCheck());
             isLoadingDone = true;
         }

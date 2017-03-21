@@ -10,7 +10,8 @@ public class MenuListItem : MonoBehaviour {
     RectTransform rectTranform;
     Button itemButton;
 
-    void OnEnable() { 
+    void OnEnable()
+    { 
         rectTranform = GetComponent<RectTransform>();
 
         layoutElement = GetComponent<LayoutElement>();

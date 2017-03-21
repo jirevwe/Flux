@@ -17,8 +17,8 @@ PlayerSettings:
   m_SplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21176471, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
-  m_SplashScreenOverlayOpacity: 1
-  m_SplashScreenAnimation: 2
+  m_SplashScreenOverlayOpacity: 0.5
+  m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
   m_SplashScreenDrawMode: 0
   m_SplashScreenBackgroundAnimationZoom: 1
@@ -119,20 +119,20 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.bluescreen.Flux
-  bundleVersion: 0.0.26
+  bundleVersion: 0.0.27
   preloadedAssets:
   - {fileID: 8300000, guid: 50ce1a84e7297e7488dd35e7f32e81a1, type: 3}
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
   xboxOneDisableKinectGpuReservation: 0
   protectGraphicsMemory: 0
-  AndroidBundleVersionCode: 11
+  AndroidBundleVersionCode: 12
   AndroidMinSdkVersion: 15
   AndroidPreferredInstallLocation: 1
   aotOptions: 
-  apiCompatibilityLevel: 1
+  apiCompatibilityLevel: 2
   stripEngineCode: 1
-  iPhoneStrippingLevel: 0
+  iPhoneStrippingLevel: 3
   iPhoneScriptCallOptimization: 0
   iPhoneBuildNumber: 0
   ForceInternetPermission: 0
@@ -195,7 +195,7 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Raymond Jirevwe/Documents/Raymond Projects/Flux/user.keystore
+  AndroidKeystoreName: C:/Users/pacent/Documents/Flux/user.keystore
   AndroidKeyaliasName: blue screen
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

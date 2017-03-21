@@ -80,7 +80,7 @@ public class ScrollViewAdapter : MonoBehaviour {
             results[i]             = new DataModel();
             results[i].title       = levelNames[i];
             results[i].levelNumber = levelNumbers[i];
-            LevelScore score = GameManager.Instance.currentPlayerScores.Find(n => n.level_number == results[i].levelNumber.Replace(".", ""));
+            LevelScore score = GameManager.Instance.currentPlayer.scores.Find(n => n.level_number == results[i].levelNumber.Replace(".", ""));
             if(score == null)
             {
                 results[i].bestTime = 0f;

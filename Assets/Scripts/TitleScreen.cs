@@ -1,15 +1,12 @@
 ﻿using DG.Tweening;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Firebase.Database;
-using Firebase;
-using Firebase.Unity.Editor;
 
 public class TitleScreen : MonoBehaviour {
 
     CanvasGroup panel;
-    public DatabaseReference reference;
+    //public DatabaseReference reference;
     [SerializeField]
     Text uuidText;
     [SerializeField]
@@ -24,10 +21,10 @@ public class TitleScreen : MonoBehaviour {
 
         uuidText.text = GameManager.GetUniqueID();
 
-#if UNITY_EDITOR
-        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://flux-73cca.firebaseio.com/");
-#endif
-        reference = FirebaseDatabase.DefaultInstance.RootReference;
+//#if UNITY_EDITOR
+//        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://flux-73cca.firebaseio.com/");
+//#endif
+//        reference = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
     public void RegisterUser()
@@ -42,9 +39,12 @@ public class TitleScreen : MonoBehaviour {
         {
             data = new PlayerData { name = "Your Display Name", uuid = GameManager.GetUniqueID() };
         }
-        GameManager.Instance.currentPlayer = data;
-        string json = JsonUtility.ToJson(data);
-        reference.Child("/players/" + GameManager.GetUniqueID()).SetRawJsonValueAsync(json);
+        GameManager.Instance.currentPlayer.name = data.name;
+        GameManager.Instance.currentPlayer.uuid = data.uuid;
+        GameManager.Instance.SavePlayerData();
+
+        //string json = JsonUtility.ToJson(data);
+        //reference.Child("/players/" + GameManager.GetUniqueID()).SetRawJsonValueAsync(json);
     }
 
     public void StartGame()

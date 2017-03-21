@@ -15,7 +15,7 @@ public class Controller : MonoBehaviour {
 
     [SerializeField]
     GameObject tutorial;
-    Color color = Color.black;
+    Color color = Color.white;
     [SerializeField]
     float showPlayerDelay;
 
@@ -27,17 +27,12 @@ public class Controller : MonoBehaviour {
     [HideInInspector]
     public bool started = false;
 
-    public static Controller Instance;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     void Start () {
-//#if UNITY_ANDROID && !UNITY_EDITOR
-//        Admob.Instance().showBannerRelative(AdSize.SmartBanner, AdPosition.TOP_CENTER, 0);
-//#endif
+        //#if UNITY_ANDROID && !UNITY_EDITOR
+        //        Admob.Instance().showBannerRelative(AdSize.SmartBanner, AdPosition.TOP_CENTER, 0);
+        //#endif
+
+        GameManager.Instance.controller = this;
 
         dot = GameObject.FindGameObjectWithTag("dot");
         lines = GameObject.FindGameObjectsWithTag("line");
@@ -54,7 +49,7 @@ public class Controller : MonoBehaviour {
             var bgImage = tutorial.transform.GetChild(0).GetComponent<Image>();
             var levelText = tutorial.transform.GetChild(1).GetComponent<Text>();
 
-            DOTween.To(() => bgImage.color, x => bgImage.color = x, new Color(1, 1, 1, 1), 1.5f);
+            DOTween.To(() => bgImage.color, x => bgImage.color = x, Color.white, 1.5f);
             DOTween.To(() => levelText.color, x => levelText.color = x, color, 1.5f);
             DOTween.To(() => text.color, x => text.color = x, color, 1.5f).OnComplete(() => 
             {
@@ -95,9 +90,9 @@ public class Controller : MonoBehaviour {
         var bgImage = tutorial.transform.GetChild(0).GetComponent<Image>();
         var levelText = tutorial.transform.GetChild(1).GetComponent<Text>();
 
-        DOTween.To(() => bgImage.color, x => bgImage.color = x, new Color(1, 1, 1, 0), 1.5f);
-        DOTween.To(() => levelText.color, x => levelText.color = x, new Color(1, 1, 1, 0), 1.5f);
-        DOTween.To(() => text.color, x => text.color = x, new Color(1,1,1,0), 1.5f).OnComplete(() =>
+        DOTween.To(() => bgImage.color, x => bgImage.color = x, new Color(0, 0, 0, 0), 1.5f);
+        DOTween.To(() => levelText.color, x => levelText.color = x, new Color(0, 0, 0, 0), 1.5f);
+        DOTween.To(() => text.color, x => text.color = x, new Color(0, 0, 0, 0), 1.5f).OnComplete(() =>
         {
             tutorial.gameObject.SetActive(false);
         });
